@@ -21,14 +21,17 @@ The code can be used  on two open datasets that need to be pre-processed before 
 1. **Download data** and create the following folder structure:
 
 ```shell
-miniimagenet/
-├── images
-	├── n0210891500001298.jpg  
-	├── n0287152500001298.jpg 
+MMAML-TSR/
+├── logs
+	├── MAML_output/ 
+	├── MMAML_output/
 	...
-├── test.csv
-├── val.csv
-└── train.csv
+├── data
+├── code
+	├── tools
+	├── pre_processing
+	├── models
+	...
 
 
 ```
