@@ -20,17 +20,18 @@ The code can be used  on two open datasets that need to be pre-processed before 
 ### Usage
 1. **Download data** and create the following folder structure:
 
-`<+-- _config.yml \\
-+-- _drafts>`
+```shell
+miniimagenet/
+├── images
+	├── n0210891500001298.jpg  
+	├── n0287152500001298.jpg 
+	...
+├── test.csv
+├── val.csv
+└── train.csv
 
-`<|   +-- begin-with-the-crazy-ideas.textile>`
-`<|   +-- on-simplicity-in-technology.markdown>`
-`<+-- _includes>`
-`<|   +-- footer.html>`
-`<|   +-- header.html>`
-`<+-- _layouts>`
-`<|   +-- default.html>`
-`<|   +-- post.html>`
+
+```
 
 
 1. **Preprocess and generate .pickle file**
