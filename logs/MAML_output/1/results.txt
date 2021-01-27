@@ -1,0 +1,28 @@
+Learning rate :0.010000 
+Meta-learning rate: 0.005000 
+Adaptation steps: 1.000000 
+Noise level: 0.000000 
+
+Learning rate :0.010000 
+Meta-learning rate: 0.005000 
+Adaptation steps: 1.000000 
+Noise level: 0.000000 
+
+Learning rate :0.010000 
+Meta-learning rate: 0.005000 
+Adaptation steps: 1.000000 
+Noise level: 0.000000 
+
+Learning rate :0.010000 
+Meta-learning rate: 0.005000 
+Adaptation steps: 1.000000 
+Noise level: 0.000000 
+
+Dataset :POLLUTION 
+Test error 1 hor.: 0.042040 
+Test error 10 hor.: 0.041850 
+Initial Test error 1 hor.: 0.043057 
+Initial Test error 10 hor.: 0.042688 
+Validation error: 0.033536 
+Initial validation error: 0.036385 
+

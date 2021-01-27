@@ -11,10 +11,15 @@ import argparse
 import os
 import json
 import copy
-from pre_processing.ts_dataset import TSDataset
-from models.base_models import LSTMModel
-from tools.metrics import torch_mae as mae
-from tools.pytorchtools import EarlyStopping
+
+sys.path.append("models")
+sys.path.append("pre_processing")
+sys.path.append("tools")
+
+from ts_dataset import TSDataset
+from base_models import LSTMModel
+from metrics import torch_mae as mae
+from pytorchtools import EarlyStopping
 
 def test(loss_fn, maml, model, model_name, dataset_name, test_data_ML, adaptation_steps, learning_rate, noise_level, noise_type, is_test = True, horizon = 10):
     
@@ -268,7 +273,7 @@ def main(args):
         initial_test_error_horizon_1 = test(loss_fn, maml, encoder, model_name, dataset_name, test_data_ML, 0, learning_rate, 0, noise_type, horizon=1)
 
 
-        with open(output_directory+"/results3.txt", "a+") as f:
+        with open(output_directory+"/results.txt", "a+") as f:
             f.write("Dataset :%s \n"% dataset_name)
             f.write("Test error 1 hor.: %f \n" % test_error_horizon_1)
             f.write("Test error 10 hor.: %f \n" % test_error_horizon_10)
