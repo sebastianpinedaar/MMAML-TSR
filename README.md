@@ -13,9 +13,9 @@ This repo contains the implementation of the paper (\*) which adapts MAML ([Finn
 
 The code can be used  on two open datasets that need to be pre-processed before running MAML or MMAML. The data is available on:
 
-* **Air pollution Dataset**: [PM2.5 Data of Five Chinese Cities Data Set](https://archive.ics.uci.edu/ml/datasets/PM2.5+Data+of+Five+Chinese+Cities).
+* **Air Pollution Dataset**: [PM2.5 Data of Five Chinese Cities Data Set](https://archive.ics.uci.edu/ml/datasets/PM2.5+Data+of+Five+Chinese+Cities).
 
-* **Heart rate Dataset**: [PPG-DaLiA Data Set](https://archive.ics.uci.edu/ml/datasets/PPG-DaLiA).
+* **Heart Rate Dataset**: [PPG-DaLiA Data Set](https://archive.ics.uci.edu/ml/datasets/PPG-DaLiA).
 
 ### Usage
 1. **Download data**
