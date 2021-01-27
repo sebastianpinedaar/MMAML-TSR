@@ -4,10 +4,10 @@ Adaptation steps: 1.000000
 Noise level: 0.000000 
 
 Dataset :POLLUTION 
-Test error 1 hor.: 0.043549 
-Test error 10 hor.: 0.045321 
-Initial Test error 1 hor.: 0.044582 
-Initial Test error 10 hor.: 0.046523 
-Validation error: 0.034365 
-Initial validation error: 0.036083 
+Test error 1 hor.: 0.045498 
+Test error 10 hor.: 0.043143 
+Initial Test error 1 hor.: 0.046648 
+Initial Test error 10 hor.: 0.043666 
+Validation error: 0.029134 
+Initial validation error: 0.030263 
 

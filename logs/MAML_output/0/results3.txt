@@ -1,8 +1,0 @@
-Dataset :POLLUTION 
-Test error 1 hor.: 0.044114 
-Test error 10 hor.: 0.041575 
-Initial Test error 1 hor.: 0.045356 
-Initial Test error 10 hor.: 0.042116 
-Validation error: 0.030233 
-Initial validation error: 0.030375 
-

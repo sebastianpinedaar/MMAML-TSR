@@ -12,8 +12,8 @@ import os
 import json
 import copy
 
-sys.path.append("models")
 sys.path.append("pre_processing")
+sys.path.append("models")
 sys.path.append("tools")
 
 from ts_dataset import TSDataset
@@ -133,9 +133,9 @@ def main(args):
     grid = [0., noise_level]
 
     #load data
-    train_data_ML = pickle.load( open( "../Data/TRAIN-"+dataset_name+"-W"+str(window_size)+"-T"+str(task_size)+"-ML.pickle", "rb" ) )
-    validation_data_ML = pickle.load( open( "../Data/VAL-"+dataset_name+"-W"+str(window_size)+"-T"+str(task_size)+"-ML.pickle", "rb" ) )
-    test_data_ML = pickle.load( open( "../Data/TEST-"+dataset_name+"-W"+str(window_size)+"-T"+str(task_size)+"-ML.pickle", "rb" ) )
+    train_data_ML = pickle.load( open( "../data/TRAIN-"+dataset_name+"-W"+str(window_size)+"-T"+str(task_size)+"-ML.pickle", "rb" ) )
+    validation_data_ML = pickle.load( open( "../data/VAL-"+dataset_name+"-W"+str(window_size)+"-T"+str(task_size)+"-ML.pickle", "rb" ) )
+    test_data_ML = pickle.load( open( "../data/TEST-"+dataset_name+"-W"+str(window_size)+"-T"+str(task_size)+"-ML.pickle", "rb" ) )
 
     #fixing loss
     loss_fn = mae
