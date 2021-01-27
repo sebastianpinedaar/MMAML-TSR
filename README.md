@@ -39,7 +39,7 @@ MMAML-TSR/
 
 1. **Preprocess and generate .pickle file**
 
-Change the paths to the raw data in the file `<pre_processing/ts_dataset.py>` accordingly.  Then run `<pre_processing/dataset_creation.ipynb>` to pickle the object with the transformed data. For a new dataset, a loading functionality should be created by taking our datasets as reference.
+Change the paths to the raw data in the file `pre_processing/ts_dataset.py` accordingly.  Then run `pre_processing/dataset_creation.ipynb` to pickle the object with the transformed data. For a new dataset, a loading functionality should be created by taking our datasets as reference.
 
 1. **Run MAML**
 1. **Run MMAML**
