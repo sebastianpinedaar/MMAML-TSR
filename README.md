@@ -1,7 +1,7 @@
 # MMAML-TSR
 ## Multi-modal meta-learning for time series regression
 
-This repo contains the implementation of the paper (\*) which adapts MAML ([Finn et al., 2017](https://arxiv.org/pdf/1703.03400.pdf)) and MMAML ([Vuorio](https://arxiv.org/pdf/1910.13616.pdf)) to Time Series Regression. 
+This repo contains the implementation of the paper (\*) which adapts MAML ([Finn et al., 2017](https://arxiv.org/pdf/1703.03400.pdf)) and MMAML ([Vuorio et al., 2019](https://arxiv.org/pdf/1910.13616.pdf)) to Time Series Regression. 
 
 ### Dependencies
 
