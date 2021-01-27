@@ -5,9 +5,9 @@ This repo contains the implementation of the paper (\*) which adapts MAML ([Finn
 
 ### Dependencies
 
-..* Python 3.7.0
-..* Pytorch 1.4.0
-..* Learn2learn 0.1.1
+* Python 3.7.0
+* Pytorch 1.4.0
+* Learn2learn 0.1.1
 
 ### Data
 
