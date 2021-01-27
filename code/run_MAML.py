@@ -153,7 +153,7 @@ def main(args):
 
     for trial in range(lower_trial, upper_trial):
 
-        output_directory = "../MAML_output/"+str(trial)+"/"
+        output_directory = "../logs/MAML_output/"+str(trial)+"/"
 
         save_model_file_encoder = output_directory +  experiment_id + "_"+"encoder_"+save_model_file
         save_model_file_output_layer = output_directory  + experiment_id + "_"+ save_model_file
