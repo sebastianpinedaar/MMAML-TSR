@@ -20,8 +20,7 @@ The code can be used  on two open datasets that need to be pre-processed before 
 ### Usage
 1. **Download data** and create the following folder structure:
 
-`<+-- _config.yml
-
+`<+-- _config.yml \\
 +-- _drafts>`
 
 `<|   +-- begin-with-the-crazy-ideas.textile>`
