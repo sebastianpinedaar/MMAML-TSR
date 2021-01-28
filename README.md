@@ -57,6 +57,21 @@ python run_MAML.py --dataset HR
 
 
 1. **Run MMAML**
+
+Assuming that the pickled files are in `data/`. Training with the default parameters on the Air Pollution Dataset works as:
+
+```shell
+python run_MMAML.py
+```
+
+To train on Heart-rate data:
+
+```shell
+python run_MMAML.py --dataset HR
+```
+
 ### Contact
+To ask questions or report issues, please open an issue on the issues tracker.
+
 
 
