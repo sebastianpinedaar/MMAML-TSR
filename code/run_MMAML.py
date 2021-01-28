@@ -11,18 +11,21 @@ import matplotlib.pyplot as plt
 from collections import OrderedDict
 import argparse
 import os
-import learn2learn as l2l
-from multimodallearner import get_task_encoder_input
-from multimodallearner import LSTMDecoder, Lambda, MultimodalLearner
-from metalearner import MetaLearner
-from meta_base_models import LinearModel, Task
 from torch.utils.tensorboard import SummaryWriter
 import numpy as np
 import copy
 import json
+import learn2learn as l2l
 
-sys.path.insert(1, "..")
 
+sys.path.append("models")
+sys.path.append("pre_processing")
+sys.path.append("tools")
+
+from multimodallearner import get_task_encoder_input
+from multimodallearner import LSTMDecoder, Lambda, MultimodalLearner
+from metalearner import MetaLearner
+from meta_base_models import LinearModel, Task
 from ts_dataset import TSDataset
 from base_models import LSTMModel, FCN
 from metrics import torch_mae as mae
@@ -106,7 +109,6 @@ def main(args):
     learning_rate = args.learning_rate
     batch_size = args.batch_size
     save_model_file = args.save_model_file
-    load_model_file = args.load_model_file
     lower_trial = args.lower_trial
     upper_trial = args.upper_trial
     task_size = args.task_size
@@ -132,11 +134,11 @@ def main(args):
     grid = [0., noise_level]
 
     train_data_ML = pickle.load(
-        open("../../Data/TRAIN-" + dataset_name + "-W" + str(window_size) + "-T" + str(task_size) + "-ML.pickle", "rb"))
+        open("../data/TRAIN-" + dataset_name + "-W" + str(window_size) + "-T" + str(task_size) + "-ML.pickle", "rb"))
     validation_data_ML = pickle.load(
-        open("../../Data/VAL-" + dataset_name + "-W" + str(window_size) + "-T" + str(task_size) + "-ML.pickle", "rb"))
+        open("../data/VAL-" + dataset_name + "-W" + str(window_size) + "-T" + str(task_size) + "-ML.pickle", "rb"))
     test_data_ML = pickle.load(
-        open("../../Data/TEST-" + dataset_name + "-W" + str(window_size) + "-T" + str(task_size) + "-ML.pickle", "rb"))
+        open("../data/TEST-" + dataset_name + "-W" + str(window_size) + "-T" + str(task_size) + "-ML.pickle", "rb"))
 
     total_tasks = len(train_data_ML)
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
@@ -175,11 +177,9 @@ def main(args):
 
     for trial in range(lower_trial, upper_trial):
 
-        output_directory = "../../Models/" + dataset_name + "_" + model_name + "_MMAML/" + str(trial) + "/"
-        save_model_file_ = output_directory + experiment_id + "_" + save_model_file
+        output_directory = "../logs/MMAML_output/" + str(trial) + "/"
+        save_model_file_output_layer = output_directory + experiment_id + "_" + save_model_file
         save_model_file_encoder = output_directory + experiment_id + "_"+ "encoder_" + save_model_file
-        load_model_file_ = output_directory + load_model_file
-        checkpoint_file = output_directory + "checkpoint_" + save_model_file.split(".")[0]
 
         writer = SummaryWriter()
 
@@ -221,7 +221,7 @@ def main(args):
         maml = l2l.algorithms.MAML(output_layer, lr=learning_rate, first_order=False)
         opt = optim.Adam(list(maml.parameters()) + list(multimodal_learner.parameters()), lr=meta_learning_rate)
 
-        early_stopping = EarlyStopping(patience=stopping_patience, model_file=save_model_file_, verbose=True)
+        early_stopping = EarlyStopping(patience=stopping_patience, model_file=save_model_file_output_layer, verbose=True)
         early_stopping_encoder = EarlyStopping(patience=stopping_patience, model_file=save_model_file_encoder, verbose=True)
 
         task_data_train = torch.FloatTensor(get_task_encoder_input(train_data_ML))
@@ -317,20 +317,20 @@ def main(args):
             writer.add_scalar("Loss/test", test_loss, iteration)
 
         multimodal_learner.load_state_dict(torch.load(save_model_file_encoder))
-        maml.load_state_dict(torch.load(save_model_file_))
+        maml.load_state_dict(torch.load(save_model_file_output_layer))
 
-        val_loss = test(loss_fn, maml, multimodal_learner, task_data_validation, dataset_name, validation_data_ML, adaptation_steps, learning_rate, noise_level, noise_type,horizon=10)
-        test_loss = test(loss_fn, maml, multimodal_learner, task_data_test, dataset_name, test_data_ML, adaptation_steps, learning_rate, noise_level, noise_type,horizon=10)
+        val_loss_10_horizons = test(loss_fn, maml, multimodal_learner, task_data_validation, dataset_name, validation_data_ML, adaptation_steps, learning_rate, noise_level, noise_type,horizon=10)
+        test_loss_10_horizons = test(loss_fn, maml, multimodal_learner, task_data_test, dataset_name, test_data_ML, adaptation_steps, learning_rate, noise_level, noise_type,horizon=10)
 
-        val_loss1 = test(loss_fn, maml, multimodal_learner, task_data_validation, dataset_name, validation_data_ML, adaptation_steps, learning_rate, noise_level, noise_type,horizon=1)
-        test_loss1 = test(loss_fn, maml, multimodal_learner, task_data_test, dataset_name, test_data_ML, adaptation_steps, learning_rate, noise_level, noise_type,horizon=1)
+        val_loss_1_horizon = test(loss_fn, maml, multimodal_learner, task_data_validation, dataset_name, validation_data_ML, adaptation_steps, learning_rate, noise_level, noise_type,horizon=1)
+        test_loss_1_horizon = test(loss_fn, maml, multimodal_learner, task_data_test, dataset_name, test_data_ML, adaptation_steps, learning_rate, noise_level, noise_type,horizon=1)
 
         adaptation_steps_ = 0
-        val_loss_0 = test(loss_fn, maml, multimodal_learner, task_data_validation, dataset_name, validation_data_ML, adaptation_steps_, learning_rate, noise_level, noise_type,horizon=10)
-        test_loss_0 = test(loss_fn, maml, multimodal_learner, task_data_test, dataset_name, test_data_ML, adaptation_steps_, learning_rate, noise_level, noise_type,horizon=10)
+        initial_val_loss_10_horizons = test(loss_fn, maml, multimodal_learner, task_data_validation, dataset_name, validation_data_ML, adaptation_steps_, learning_rate, noise_level, noise_type,horizon=10)
+        initial_test_loss_10_horizons = test(loss_fn, maml, multimodal_learner, task_data_test, dataset_name, test_data_ML, adaptation_steps_, learning_rate, noise_level, noise_type,horizon=10)
         
-        val_loss1_0 = test(loss_fn, maml, multimodal_learner, task_data_validation, dataset_name, validation_data_ML, adaptation_steps_, learning_rate, noise_level, noise_type,horizon=1)
-        test_loss1_0 = test(loss_fn, maml, multimodal_learner, task_data_test, dataset_name, test_data_ML, adaptation_steps_, learning_rate, noise_level, noise_type,horizon=1)
+        initial_val_loss_1_horizon = test(loss_fn, maml, multimodal_learner, task_data_validation, dataset_name, validation_data_ML, adaptation_steps_, learning_rate, noise_level, noise_type,horizon=1)
+        initial_test_loss_1_horizon = test(loss_fn, maml, multimodal_learner, task_data_test, dataset_name, test_data_ML, adaptation_steps_, learning_rate, noise_level, noise_type,horizon=1)
 
         with open(output_directory + "/results3.txt", "a+") as f:
             f.write("\n \n Learning rate :%f \n"% learning_rate)
@@ -338,12 +338,12 @@ def main(args):
             f.write("Adaptation steps: %f \n" % adaptation_steps)
             f.write("Noise level: %f \n" % noise_level)
             f.write("vrae weight: %f \n" % weight_vrae)
-            f.write("Test error: %f \n" % test_loss)
-            f.write("Val error: %f \n" % val_loss)
-            f.write("Test error 1: %f \n" % test_loss1)
-            f.write("Val error 1: %f \n" % val_loss1)
-            f.write("Test error 0: %f \n" % test_loss_0)
-            f.write("Val error 0: %f \n" % val_loss_0)
+            f.write("Initial Test error 10 horizons: %f \n" % initial_test_loss_10_horizons)
+            f.write("Initial Val error 10 horizons: %f \n" % initial_val_loss_10_horizons)
+            f.write("Test error 1 horizon: %f \n" % test_loss_1_horizon)
+            f.write("Val error 1 horizon: %f \n" % val_loss_1_horizon)
+            f.write("Test error 10 horizons: %f \n" % test_loss_10_horizons)
+            f.write("Val error 10 horizons: %f \n" % val_loss_10_horizons)
 
         writer.add_hparams({"fast_lr": learning_rate,
                             "slow_lr": meta_learning_rate,
@@ -360,8 +360,8 @@ def main(args):
         temp_results_dict["Trial"] = trial
         temp_results_dict["Adaptation steps"] = adaptation_steps
         temp_results_dict["Horizon"] = 10
-        temp_results_dict["Value"] = float(test_loss)
-        temp_results_dict["Val error"] = float(val_loss)
+        temp_results_dict["Value"] = float(test_loss_10_horizons)
+        temp_results_dict["Val error"] = float(val_loss_10_horizons)
         temp_results_dict["Final_epoch"] = iteration
         results_list.append(temp_results_dict)
 
@@ -369,8 +369,8 @@ def main(args):
         temp_results_dict["Trial"] = trial
         temp_results_dict["Adaptation steps"] = 0
         temp_results_dict["Horizon"] = 10
-        temp_results_dict["Value"] = float(test_loss_0)
-        temp_results_dict["Val error"] = float(val_loss_0)
+        temp_results_dict["Value"] = float(initial_test_loss_10_horizons)
+        temp_results_dict["Val error"] = float(initial_val_loss_10_horizons)
         temp_results_dict["Final_epoch"] = iteration
         results_list.append(temp_results_dict)      
 
@@ -378,7 +378,7 @@ def main(args):
         temp_results_dict["Trial"] = trial
         temp_results_dict["Adaptation steps"] = adaptation_steps
         temp_results_dict["Horizon"] = 1
-        temp_results_dict["Value"] = float(test_loss1)
+        temp_results_dict["Value"] = float(test_loss_1_horizon)
         temp_results_dict["Final_epoch"] = iteration
         results_list.append(temp_results_dict)
 
@@ -386,17 +386,17 @@ def main(args):
         temp_results_dict["Trial"] = trial
         temp_results_dict["Adaptation steps"] = 0
         temp_results_dict["Horizon"] = 1
-        temp_results_dict["Value"] = float(test_loss1_0)
+        temp_results_dict["Value"] = float(initial_test_loss_1_horizon)
         temp_results_dict["Final_epoch"] = iteration
         results_list.append(temp_results_dict)  
 
 
     try:
-        os.mkdir("../../Results/json_files/")
+        os.mkdir("../logs/json_files/")
     except OSError as error:
         print(error)
         
-    with open("../../Results/json_files/"+experiment_id+".json", 'w') as outfile:
+    with open("../logs/json_files/"+experiment_id+".json", 'w') as outfile:
         json.dump(results_list, outfile)
 
 if __name__ == '__main__':

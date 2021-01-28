@@ -320,11 +320,11 @@ def main(args):
         results_list.append(temp_results_dict)  
 
     try:
-        os.mkdir("../Results/")
+        os.mkdir("../logs/json_files/")
     except OSError as error:
         print(error)
         
-    with open("../Results/"+experiment_id+".json", 'w') as outfile:
+    with open("../logs/json_files/"+experiment_id+".json", 'w') as outfile:
         json.dump(results_list, outfile)
 
 
