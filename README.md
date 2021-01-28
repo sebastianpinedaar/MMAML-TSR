@@ -71,7 +71,7 @@ python run_MMAML.py --dataset HR
 ```
 
 ### Contact
-To ask questions or report issues, please open an issue on the issues tracker.
+To ask questions or report issues, please open an issue on the issues tracker (https://github.com/sebastianpinedaar/MMAML-TSR/issues).
 
 
 
