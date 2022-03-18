@@ -41,7 +41,7 @@ MMAML-TSR/
 
 Change the paths to the raw data in the file `pre_processing/ts_dataset.py` accordingly.  Then run `pre_processing/dataset_creation.ipynb` to pickle the object with the transformed data. For a new dataset, a loading functionality should be created by taking our datasets as reference.
 
-1. **Run MAML**
+2. **Run MAML**
 
 Assuming that the pickled files are in `data/`. Training with the default parameters on the Air Pollution Dataset works as:
 
@@ -56,7 +56,22 @@ python run_MAML.py --dataset HR
 ```
 
 
-1. **Run MMAML**
+3. **Run MMAML**
+
+Assuming that the pickled files are in `data/`. Training with the default parameters on the Air Pollution Dataset works as:
+
+```shell
+python run_MMAML.py
+```
+
+To train on Heart-rate data:
+
+```shell
+python run_MMAML.py --dataset HR
+```
+
 ### Contact
+To ask questions or report issues, please open an issue on the [issues tracker](https://github.com/sebastianpinedaar/MMAML-TSR/issues).
+
 
 
