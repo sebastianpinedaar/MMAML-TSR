@@ -46,12 +46,14 @@ Change the paths to the raw data in the file `pre_processing/ts_dataset.py` acco
 Assuming that the pickled files are in `data/`. Training with the default parameters on the Air Pollution Dataset works as:
 
 ```shell
+cd code/
 python run_MAML.py
 ```
 
 To train on Heart-rate data:
 
 ```shell
+cd code/
 python run_MAML.py --dataset HR
 ```
 
@@ -61,12 +63,14 @@ python run_MAML.py --dataset HR
 Assuming that the pickled files are in `data/`. Training with the default parameters on the Air Pollution Dataset works as:
 
 ```shell
+cd code
 python run_MMAML.py
 ```
 
 To train on Heart-rate data:
 
 ```shell
+cd code
 python run_MMAML.py --dataset HR
 ```
 
