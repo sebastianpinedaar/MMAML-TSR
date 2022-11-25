@@ -3,6 +3,8 @@
 
 This repo contains the implementation of the paper (\*) which adapts MAML ([Finn et al., 2017](https://arxiv.org/pdf/1703.03400.pdf)) and MMAML ([Vuorio et al., 2019](https://arxiv.org/pdf/1910.13616.pdf)) to Time Series Regression. 
 
+The multimodal-meta-learning is based on this [official implementation](https://github.com/shaohua0116/MMAML-Classification).
+
 ### Dependencies
 
 * Python 3.7.0
