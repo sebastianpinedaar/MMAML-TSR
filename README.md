@@ -1,7 +1,7 @@
 # MMAML-TSR
 ## Multi-modal meta-learning for time series regression
 
-This repo contains the implementation of the paper (\*) which adapts MAML ([Finn et al., 2017](https://arxiv.org/pdf/1703.03400.pdf)) and MMAML ([Vuorio et al., 2019](https://arxiv.org/pdf/1910.13616.pdf)) to Time Series Regression. 
+This repo contains the implementation of this [paper](https://arxiv.org/abs/2108.02842) which adapts MAML ([Finn et al., 2017](https://arxiv.org/pdf/1703.03400.pdf)) and MMAML ([Vuorio et al., 2019](https://arxiv.org/pdf/1910.13616.pdf)) to Time Series Regression. 
 
 The multimodal-meta-learning is based on this [official implementation](https://github.com/shaohua0116/MMAML-Classification).
 
@@ -74,6 +74,20 @@ To train on Heart-rate data:
 ```shell
 cd code
 python run_MMAML.py --dataset HR
+```
+
+### Cite us
+If this repository is useful, please cite us as:
+
+```
+@inproceedings{arango2021multimodal,
+  title={Multimodal meta-learning for time series regression},
+  author={Arango, Sebastian Pineda and Heinrich, Felix and Madhusudhanan, Kiran and Schmidt-Thieme, Lars},
+  booktitle={Advanced Analytics and Learning on Temporal Data: 6th ECML PKDD Workshop, AALTD 2021, Bilbao, Spain, September 13, 2021, Revised Selected Papers 6},
+  pages={123--138},
+  year={2021},
+  organization={Springer}
+}
 ```
 
 ### Contact
